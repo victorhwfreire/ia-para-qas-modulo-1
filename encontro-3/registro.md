@@ -1,6 +1,6 @@
 # Registro — Encontro 3 · Formulação e contexto
 
-Copie este arquivo para a pasta do caso (`caso-vitrine/registro-e3.md`) e preencha lá, para ele entrar no Git.
+Copie este arquivo para a pasta do caso (`caso-vitrine/registro-e3.md`) e preencha lá, junto com as saídas.
 
 - **Nome(s):**
 
@@ -29,13 +29,11 @@ Copie este arquivo para a pasta do caso (`caso-vitrine/registro-e3.md`) e preenc
 | F1-a | | | | | | | |
 | F1-b | | | | | | | |
 | F2-a | | | | | | | |
-| F2-b | | | | | | | |
 | F3-a | | | | | | | |
-| F3-b | | | | | | | |
 | F4-a | | | | | | | |
 | F4-b | | | | | | | |
 
-- **A diferença entre `a` e `b` da mesma formulação foi menor que a diferença entre formulações?**
+- **A diferença entre F1-a e F1-b, e entre F4-a e F4-b, foi menor que a diferença entre formulações?**
 
 ### Passo 5 — O que vale para qualquer tarefa da Vitrine
 
