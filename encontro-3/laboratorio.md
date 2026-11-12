@@ -144,6 +144,7 @@ Até domingo, 15/11, 23h59, envie no canal da turma, numa pasta com o seu nome, 
 
 ## Para aprofundar
 
+- [Estudo dirigido do encontro 3](estudo-dirigido.pdf): os conceitos da aula e três práticas para fazer depois, no Desktop.
 - [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices), guia da Anthropic.
 - [Como o Claude Code lembra do projeto](https://code.claude.com/docs/en/memory): `CLAUDE.md`, memória automática e `/context all`.
 - [Claude Code no Desktop](https://code.claude.com/docs/en/desktop): sessões, seletor de modelo e modos de permissão.
