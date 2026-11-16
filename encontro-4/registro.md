@@ -60,12 +60,13 @@ Copie este arquivo para a pasta do caso (`caso-vitrine/registro-e4.md`) e preenc
 
 ## Laboratório 4 — Modelos
 
-| Modelo | Segundos | Custo estimado (US$) | Linhas aceitas sem mudança (de 3) |
-|---|---:|---:|---:|
-| haiku | | | |
-| sonnet | | | |
-| opus (opcional) | | | |
+| Modelo | Segundos (cronômetro) | Linhas aceitas sem mudança (de 3) |
+|---|---:|---:|
+| Haiku | | |
+| Sonnet 5.5 | | |
+| Opus (opcional) | | |
 
+- **Custo pela tabela de preços da API (slide 14):** o Sonnet custa ____ vezes o Haiku por token.
 - **Qual eu usaria para esta triagem, e por quê:**
 
 ## Observações
