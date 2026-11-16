@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vitrine · homologação</title>
+<style>
+:root{--fundo:#F6F4F1;--cartao:#FFFFFF;--tinta:#1E1B18;--tinta-2:#4A4540;--tinta-3:#77706A;--linha:#E2DDD6;--verde:#2E6B4F;--verde-claro:#E6F1EB;--vermelho:#A63A2B;--vermelho-claro:#F8E8E5;--aviso:#8A6116;--aviso-claro:#FBF1DC}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--tinta);font:16px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+header{background:var(--tinta);color:#fff}
+header .wrap{display:flex;align-items:center;gap:12px;padding-block:14px}
+header h1{margin:0;font-size:1.4rem;letter-spacing:.02em}
+.selo{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;background:#F2C14E;color:var(--tinta);padding:3px 8px;border-radius:4px;font-weight:700}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main .wrap{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;padding-block:24px}
+h2{font-size:1.15rem;margin:0 0 12px}
+.produtos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.produto{background:var(--cartao);border:1px solid var(--linha);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.foto{height:96px;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:1.6rem;color:#fff}
+.produto h3{margin:0;font-size:1rem}
+.preco{font-weight:700}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--verde);background:var(--verde);color:#fff;padding:8px 12px;font-weight:600}
+button.sec{background:#fff;color:var(--verde)}
+button:disabled{cursor:not-allowed;background:#CFCAC3;border-color:#CFCAC3;color:#fff}
+.lateral{display:flex;flex-direction:column;gap:16px}
+.bloco{background:var(--cartao);border:1px solid var(--linha);border-radius:10px;padding:16px}
+.linha{display:flex;justify-content:space-between;gap:12px;padding:4px 0}
+.vazio{color:var(--tinta-3)}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+legend{font-weight:700;font-size:1.15rem;margin-bottom:8px;padding:0}
+.opcao{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--linha);border-radius:8px}
+.opcao span.valor{margin-left:auto}
+.cupom{display:flex;gap:8px}
+.cupom input{flex:1;min-width:0;font:inherit;padding:8px 10px;border:1px solid #B9B1A6;border-radius:8px;text-transform:none}
+.msg{margin:10px 0 0;padding:8px 10px;border-radius:8px;font-size:.95rem}
+.msg.ok{background:var(--verde-claro);color:var(--verde)}
+.msg.erro{background:var(--vermelho-claro);color:var(--vermelho)}
+.resumo .total{border-top:1px solid var(--linha);margin-top:6px;padding-top:8px;font-weight:700;font-size:1.1rem}
+.nota{font-size:.85rem;color:var(--tinta-3);margin:8px 0 0}
+.homolog{background:var(--aviso-claro);color:var(--aviso);border:1px solid #EAD6A8;border-radius:8px;padding:8px 10px;font-size:.9rem;margin:10px 0 0}
+footer{color:var(--tinta-3);font-size:.85rem;padding-block:8px 24px}
+@media (max-width:760px){main .wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>Vitrine</h1><span class="selo">homologação</span></div></header>
+<main>
+  <div class="wrap">
+    <section aria-labelledby="t-produtos">
+      <h2 id="t-produtos">Produtos</h2>
+      <div class="produtos" id="produtos"></div>
+    </section>
+    <aside class="lateral">
+      <section class="bloco" aria-labelledby="t-carrinho">
+        <h2 id="t-carrinho">Seu carrinho</h2>
+        <div id="carrinho"></div>
+        <p class="nota">Esvaziar o carrinho também remove a entrega escolhida e o cupom aplicado.</p>
+      </section>
+      <section class="bloco">
+        <fieldset id="entregas">
+          <legend>Entrega</legend>
+        </fieldset>
+      </section>
+      <section class="bloco" aria-labelledby="t-cupom">
+        <h2 id="t-cupom"><label for="cupom">Cupom de desconto</label></h2>
+        <div class="cupom">
+          <input id="cupom" name="cupom" type="text" maxlength="12" autocomplete="off" placeholder="Digite o código" aria-label="Cupom de desconto">
+          <button type="button" id="aplicar">Aplicar</button>
+        </div>
+        <p class="msg" id="msg-cupom" role="status" aria-live="polite" hidden></p>
+      </section>
+      <section class="bloco resumo" aria-labelledby="t-resumo">
+        <h2 id="t-resumo">Resumo do pedido</h2>
+        <div class="linha"><span>Produtos</span><span id="v-produtos">R$ 0,00</span></div>
+        <div class="linha"><span>Desconto</span><span id="v-desconto">R$ 0,00</span></div>
+        <div class="linha"><span>Frete</span><span id="v-frete">—</span></div>
+        <div class="linha total"><span>Total</span><span id="v-total">R$ 0,00</span></div>
+        <button type="button" id="finalizar" disabled>Finalizar pedido</button>
+        <p class="homolog">Homologação: o pagamento está desligado. Nenhum pedido é enviado.</p>
+      </section>
+    </aside>
+  </div>
+  <footer class="wrap">Loja fictícia, criada para a aula IA para QA da CESAR School. Os produtos, os cupons e os defeitos são de mentira; nada é comprado.</footer>
+</main>
+<script>
+(function () {
+  "use strict";
+  var PRODUTOS = [
+    { id: "luminaria", nome: "Luminária de mesa Aurora", preco: 100, cor: "#C9853A", sigla: "LA" },
+    { id: "vaso", nome: "Vaso de cerâmica Terra", preco: 40, cor: "#A85C3E", sigla: "VT" },
+    { id: "almofada", nome: "Almofada Linho Areia", preco: 60, cor: "#B9A27E", sigla: "AL" },
+    { id: "caneca", nome: "Caneca Barro", preco: 30, cor: "#7B5B45", sigla: "CB" },
+    { id: "quadro", nome: "Quadro Horizonte", preco: 150, cor: "#4F6E8C", sigla: "QH" },
+    { id: "manta", nome: "Manta Tricô Bruma", preco: 90, cor: "#8C8C99", sigla: "MT" }
+  ];
+  var ENTREGAS = [
+    { id: "economica", nome: "Econômica", valor: 5 },
+    { id: "padrao", nome: "Padrão", valor: 20 },
+    { id: "expressa", nome: "Expressa", valor: 30 }
+  ];
+  var HOJE = new Date(2026, 10, 16);
+  var CUPONS = {
+    BEMVINDO10: { tipo: "pct", valor: 10, validade: new Date(2026, 11, 31) },
+    PRIMAVERA15: { tipo: "pct", valor: 15, validade: new Date(2026, 11, 20) },
+    MINIMO50: { tipo: "fixo", valor: 10, minimo: 50, validade: new Date(2026, 11, 31) },
+    DESC30: { tipo: "fixo", valor: 30, validade: new Date(2026, 11, 31) },
+    VERAO2025: { tipo: "pct", valor: 10, validade: new Date(2026, 2, 31) }
+  };
+  var estado = { itens: {}, entrega: null, cupom: null };
+
+  function $(id) { return document.getElementById(id); }
+  function brl(v) { return "R$ " + v.toFixed(2).replace(".", ","); }
+  function produtos() { return PRODUTOS.reduce(function (s, p) { return s + (estado.itens[p.id] || 0) * p.preco; }, 0); }
+  function frete() { var e = ENTREGAS.filter(function (x) { return x.id === estado.entrega; })[0]; return e ? e.valor : 0; }
+  function desconto() {
+    if (!estado.cupom) return 0;
+    var c = CUPONS[estado.cupom];
+    if (c.tipo === "pct") return Math.round((produtos() + frete()) * c.valor) / 100;
+    return Math.min(c.valor, produtos());
+  }
+  function msg(texto, tipo) {
+    var m = $("msg-cupom");
+    m.textContent = texto; m.className = "msg " + tipo; m.hidden = !texto;
+  }
+
+  function renderProdutos() {
+    $("produtos").innerHTML = "";
+    PRODUTOS.forEach(function (p) {
+      var art = document.createElement("article");
+      art.className = "produto";
+      art.innerHTML = '<div class="foto" aria-hidden="true" style="background:' + p.cor + '">' + p.sigla + "</div><h3>" + p.nome +
+        '</h3><span class="preco">' + brl(p.preco) + "</span>";
+      var b = document.createElement("button");
+      b.type = "button"; b.textContent = "Adicionar ao carrinho";
+      b.setAttribute("aria-label", "Adicionar ao carrinho: " + p.nome);
+      b.addEventListener("click", function () { estado.itens[p.id] = (estado.itens[p.id] || 0) + 1; render(); });
+      art.appendChild(b);
+      $("produtos").appendChild(art);
+    });
+  }
+  function renderEntregas() {
+    var fs = $("entregas");
+    ENTREGAS.forEach(function (e) {
+      var l = document.createElement("label");
+      l.className = "opcao";
+      l.innerHTML = '<input type="radio" name="entrega" value="' + e.id + '" aria-label="Entrega ' + e.nome + ", " + brl(e.valor) + '"><span>' + e.nome + '</span><span class="valor">' + brl(e.valor) + "</span>";
+      l.querySelector("input").addEventListener("change", function () { estado.entrega = e.id; render(); });
+      fs.appendChild(l);
+    });
+  }
+  function render() {
+    var c = $("carrinho"), linhas = PRODUTOS.filter(function (p) { return estado.itens[p.id]; });
+    if (!linhas.length) c.innerHTML = '<p class="vazio">Seu carrinho está vazio.</p>';
+    else {
+      c.innerHTML = linhas.map(function (p) {
+        return '<div class="linha"><span>' + p.nome + " × " + estado.itens[p.id] + "</span><span>" + brl(estado.itens[p.id] * p.preco) + "</span></div>";
+      }).join("");
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "sec"; b.textContent = "Esvaziar carrinho";
+      b.addEventListener("click", esvaziar);
+      c.appendChild(b);
+    }
+    var d = desconto();
+    $("v-produtos").textContent = brl(produtos());
+    $("v-desconto").textContent = d ? "− " + brl(d) : brl(0);
+    $("v-frete").textContent = estado.entrega ? brl(frete()) : "—";
+    $("v-total").textContent = brl(produtos() + frete() - d);
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="entrega"]'), function (r) { r.checked = r.value === estado.entrega; });
+  }
+  function esvaziar() {
+    estado = { itens: {}, entrega: null, cupom: null };
+    $("cupom").value = ""; msg("", "ok"); render();
+  }
+  function aplicar() {
+    var codigo = $("cupom").value.trim();
+    if (!codigo) { msg("Digite o código do cupom.", "erro"); return; }
+    if (!produtos()) { msg("Adicione um produto antes de aplicar o cupom.", "erro"); return; }
+    var c = CUPONS[codigo];
+    if (!c) { msg("Cupom inválido", "erro"); return; }
+    if (c.validade < HOJE) { msg("Cupon expirado", "erro"); return; }
+    if (c.minimo && produtos() + frete() < 40) { msg("Este cupom exige pedido mínimo de " + brl(c.minimo) + ".", "erro"); return; }
+    var anterior = estado.cupom;
+    estado.cupom = codigo;
+    var texto = "Cupom " + codigo + " aplicado: " + (c.tipo === "pct" ? c.valor + "% de desconto." : brl(c.valor) + " de desconto.");
+    if (anterior && anterior !== codigo) texto += " Ele substituiu o cupom " + anterior + ".";
+    msg(texto, "ok"); render();
+  }
+  $("aplicar").addEventListener("click", aplicar);
+  $("cupom").addEventListener("keydown", function (e) { if (e.key === "Enter") aplicar(); });
+  renderProdutos(); renderEntregas(); render();
+})();
+</script>
+</body>
+</html>
